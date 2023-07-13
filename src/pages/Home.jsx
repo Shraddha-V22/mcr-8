@@ -21,6 +21,7 @@ export default function Home() {
             onChange={(e) =>
               dispatch({ type: EVENT.FILTER, payload: e.target.value })
             }
+            className="rounded-md border bg-gray-200 p-2 capitalize"
           >
             <option value="">select event type</option>
             <option value="online">online</option>
@@ -30,7 +31,7 @@ export default function Home() {
         </div>
       </div>
       {filteredData.length > 0 ? (
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap justify-center gap-4">
           {filteredData.map((e) => (
             <EventCard
               key={e.id}

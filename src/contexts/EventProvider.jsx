@@ -19,7 +19,7 @@ export default function EventProvider({ children }) {
   const filteredData = useMemo(() => {
     let newData = [...meetups];
     if (eventsData.searchText) {
-      newData = eventsData.events.filter(
+      return eventsData.events.filter(
         ({ title, eventTags }) =>
           title.toLowerCase().includes(eventsData.searchText.toLowerCase()) ||
           eventTags

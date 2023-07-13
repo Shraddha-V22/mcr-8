@@ -15,7 +15,7 @@ export default function Event() {
     id,
     title,
     eventStartTime,
-    eventEndDate,
+    eventEndTime,
     location,
     address,
     eventDescription,
@@ -30,38 +30,46 @@ export default function Event() {
   } = event;
 
   return (
-    <section className="grid grid-cols-2">
-      <div>
-        <h1>{title}</h1>
-        <p>
+    <section className="grid grid-cols-2 p-8">
+      <div className="flex flex-col gap-4">
+        <h1 className="text-3xl font-bold">{title}</h1>
+        <p className="flex flex-col">
           Hosted By: <span>{hostedBy}</span>
         </p>
-        <img src={eventThumbnail} alt="" />
-        <div>
-          <h2>Details: </h2>
+        <img src={eventThumbnail} alt="" className="max-w-[400px] rounded-md" />
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg font-bold">Details: </h2>
           <p>{eventDescription}</p>
         </div>
-        <div>
-          <h2>Additional Information:</h2>
-          <p>
-            <strong>Dress code: </strong>
-            {additionalInformation.dressCode}
-          </p>
-          <p>
-            <strong>Age restrictions: </strong>
-            {additionalInformation.ageRestriction}
-          </p>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg font-bold">Additional Information:</h2>
+          <div>
+            <p>
+              <strong>Dress code: </strong>
+              {additionalInformation.dressCode}
+            </p>
+            <p>
+              <strong>Age restrictions: </strong>
+              {additionalInformation.ageRestrictions}
+            </p>
+          </div>
         </div>
-        <div>
-          <h2>Event tags:</h2>
-          <p>{eventTags.join(" ,")}</p>
+        <div className="flex flex-col gap-2">
+          <h2 className="text-lg font-bold">Event tags:</h2>
+          <div className="flex gap-2">
+            {eventTags.map((tag) => (
+              <p className="w-fit rounded-md bg-orange-600 px-2 py-1 capitalize text-white">
+                {tag}
+              </p>
+            ))}
+          </div>
         </div>
       </div>
-      <div>
-        <div>
+      <div className="ml-auto flex flex-col gap-4">
+        <div className="flex flex-col gap-2 rounded-md border bg-white p-4">
           <div>
             <p>{eventStartTime} to</p>
-            <p>{eventEndDate}</p>
+            <p>{eventEndTime}</p>
           </div>
           <div>
             <p>{location}</p>
@@ -69,11 +77,11 @@ export default function Event() {
           </div>
           {isPaid && <p>₹{price}</p>}
         </div>
-        <div>
-          <h2>Speakers: {speakers.length}</h2>
-          <div>
+        <div className="flex flex-col gap-4">
+          <h2 className="text-lg font-bold">Speakers: ({speakers.length})</h2>
+          <div className="flex gap-4">
             {speakers.map((sp) => (
-              <div className="h-[auto] w-[auto]">
+              <div className="flex h-[auto] w-fit flex-col items-center gap-1 rounded-md border p-4">
                 <img
                   src={sp.image}
                   alt=""
@@ -86,8 +94,7 @@ export default function Event() {
               </div>
             ))}
           </div>
-          {/* <button className="">RSVP</button> */}
-          <RsvpModal />
+          {!isPaid && <RsvpModal />}
         </div>
       </div>
     </section>
